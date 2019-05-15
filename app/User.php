@@ -36,4 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return CipUser
+     */
+    public function getCipUser()
+    {
+        $id = DB::table('user_to_cip_user')->where('user_id', $this->id)->min('cip_user_id');
+        return CipUser::find($id);
+    }
 }
